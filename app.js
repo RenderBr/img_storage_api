@@ -8,14 +8,16 @@ var indexRouter = require('./routes/index');
 var imagesRouter = require('./routes/images');
 
 var app = express();
+require('dotenv').config();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({limit: process.env.MAX_UPLOAD_SIZE || '10mb'}));
+app.use(express.urlencoded({ limit: process.env.MAX_UPLOAD_SIZE || '10mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
