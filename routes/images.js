@@ -36,6 +36,7 @@ router.post('/', function(req, res, next) {
     
     fs.writeFile(`public/images/${fileName}`, base64Data, (err) => {
         if (err){
+            console.error(err);
             return res.status(500).json({ error: 'Error saving image' });
         }
         
